@@ -113,14 +113,26 @@ end:
 
 void app_main(void)
 {
+	char * json_string;
+	char line[64];
 	ESP_ERROR_CHECK(nvs_flash_init());
 	sd_card_init();
-	FILE * json_file = fopen("/sdcard/monitor.json","r");
-	char * json_string;
+	printf("sdcard\n");
+	FILE * json_file = fopen("/sdcard/json.txt","r");
+	if (json_file==NULL){
+			printf("Failed to open file for reading\n");
+	}
 	fseek(json_file,0L,SEEK_END);
 	long size = ftell(json_file);
-	json_string = (char*)malloc(size*sizeof(char));
-	fgets(json_string,size,json_file);
+	printf("size: %ld \n",size);
+	fseek(json_file,0L,SEEK_SET);
+	json_string =(char*) calloc(size,sizeof(char*));
+	while(fgets(line,sizeof(line),json_file)!=NULL){
+		//printf("%s == ",line);
+		strcat(json_string,line);
+	}
 	printf(json_string);
+	int status = supports_full_hd(json_string);
+	printf("status = %d\n",status);
 	free(json_string);
 }
