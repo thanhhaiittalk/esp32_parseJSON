@@ -21,7 +21,7 @@
 #include "cJSON.h"
 
 void sd_card_init();
-int supports_full_hd(const char * const monitor);
+int check_update(const char * const monitor);
 
 void sd_card_init()
 {
@@ -63,14 +63,14 @@ void sd_card_init()
 	    sdmmc_card_print_info(stdout, card);
 }
 
-int supports_full_hd(const char * const monitor)
+int check_update(const char * const json_string)
 {
-    const cJSON *resolution = NULL;
-    const cJSON *resolutions = NULL;
-    const cJSON *name = NULL;
+    const cJSON *update = NULL;
+    const cJSON *artifacts = NULL;
+
     int status = 0;
-    cJSON *monitor_json = cJSON_Parse(monitor);
-    if (monitor_json == NULL)
+    cJSON *muse_json = cJSON_Parse(json_string);
+    if (muse_json == NULL)
     {
         const char *error_ptr = cJSON_GetErrorPtr();
         if (error_ptr != NULL)
@@ -81,33 +81,15 @@ int supports_full_hd(const char * const monitor)
         goto end;
     }
 
-    name = cJSON_GetObjectItemCaseSensitive(monitor_json, "name");
-    if (cJSON_IsString(name) && (name->valuestring != NULL))
+    update = cJSON_GetObjectItemCaseSensitive(muse_json, "update");
+    if (cJSON_IsString(update) && (update->valuestring != NULL))
     {
-        printf("Checking monitor \"%s\"\n", name->valuestring);
+        printf("Checking update \"%s\"\n", update->valuestring);
     }
 
-    resolutions = cJSON_GetObjectItemCaseSensitive(monitor_json, "resolutions");
-    cJSON_ArrayForEach(resolution, resolutions)
-    {
-        cJSON *width = cJSON_GetObjectItemCaseSensitive(resolution, "width");
-        cJSON *height = cJSON_GetObjectItemCaseSensitive(resolution, "height");
-
-        if (!cJSON_IsNumber(width) || !cJSON_IsNumber(height))
-        {
-            status = 0;
-            goto end;
-        }
-
-        if ((width->valuedouble == 1920) && (height->valuedouble == 1080))
-        {
-            status = 1;
-            goto end;
-        }
-    }
-
+//
 end:
-    cJSON_Delete(monitor_json);
+    cJSON_Delete(muse_json);
     return status;
 }
 
@@ -118,7 +100,7 @@ void app_main(void)
 	ESP_ERROR_CHECK(nvs_flash_init());
 	sd_card_init();
 	printf("sdcard\n");
-	FILE * json_file = fopen("/sdcard/json.txt","r");
+	FILE * json_file = fopen("/sdcard/hcm.txt","r");
 	if (json_file==NULL){
 			printf("Failed to open file for reading\n");
 	}
@@ -132,7 +114,7 @@ void app_main(void)
 		strcat(json_string,line);
 	}
 	printf(json_string);
-	int status = supports_full_hd(json_string);
+	int status = check_update(json_string);
 	printf("status = %d\n",status);
 	free(json_string);
 }

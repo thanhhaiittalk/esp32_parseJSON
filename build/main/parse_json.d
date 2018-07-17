@@ -1,5 +1,5 @@
 parse_json.o: \
- /home/hai_dotcom/Project/project_zer0_esp32/Workspace_ZERO/parse_json/main/./parse_json.c \
+ /home/hai_dotcom/Project/project_zer0_esp32/Workspace_ZERO/parse_json2/main/./parse_json.c \
  /home/hai_dotcom/esp/esp-idf/components/newlib/include/stdio.h \
  /home/hai_dotcom/esp/esp-idf/components/newlib/include/_ansi.h \
  /home/hai_dotcom/esp/esp-idf/components/newlib/include/newlib.h \
@@ -28,7 +28,7 @@ parse_json.o: \
  /home/hai_dotcom/esp/esp-idf/components/newlib/include/stdint.h \
  /home/hai_dotcom/esp/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/hai_dotcom/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/hai_dotcom/Project/project_zer0_esp32/Workspace_ZERO/parse_json/build/include/sdkconfig.h \
+ /home/hai_dotcom/Project/project_zer0_esp32/Workspace_ZERO/parse_json2/build/include/sdkconfig.h \
  /home/hai_dotcom/esp/esp-idf/components/newlib/include/stdlib.h \
  /home/hai_dotcom/esp/esp-idf/components/newlib/include/machine/stdlib.h \
  /home/hai_dotcom/esp/esp-idf/components/newlib/include/alloca.h \
@@ -166,7 +166,7 @@ parse_json.o: \
 
 /home/hai_dotcom/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/hai_dotcom/Project/project_zer0_esp32/Workspace_ZERO/parse_json/build/include/sdkconfig.h:
+/home/hai_dotcom/Project/project_zer0_esp32/Workspace_ZERO/parse_json2/build/include/sdkconfig.h:
 
 /home/hai_dotcom/esp/esp-idf/components/newlib/include/stdlib.h:
 
@@ -327,4 +327,4 @@ parse_json.o: \
 /home/hai_dotcom/esp/esp-idf/components/nvs_flash/include/nvs.h:
 
 /home/hai_dotcom/esp/esp-idf/components/json/cJSON/cJSON.h:
-/home/hai_dotcom/Project/project_zer0_esp32/Workspace_ZERO/parse_json/main/./parse_json.c:
+/home/hai_dotcom/Project/project_zer0_esp32/Workspace_ZERO/parse_json2/main/./parse_json.c:
